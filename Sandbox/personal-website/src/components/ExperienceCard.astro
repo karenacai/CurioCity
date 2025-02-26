@@ -1,0 +1,66 @@
+---
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  company?: string;
+  logo?: ImageMetadata;
+  logoAlt?: string;
+  date: string;
+  points: string[];
+  technologies?: string[];
+}
+
+const { title, company, logo, logoAlt, date, points, technologies } = Astro.props;
+---
+
+<div class="card group">
+  {logo && (
+    <div class="mb-6">
+      <div class="h-16 flex items-center">
+        <img 
+          src={logo.src} 
+          alt={logoAlt || `${company} logo`}
+          class="h-full w-auto object-contain object-left 
+                 group-hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+    </div>
+  )}
+  
+  <div class="flex flex-col sm:flex-row justify-between mb-4">
+    <div>
+      <h3 class="font-display text-xl font-semibold text-gray-900">{title}</h3>
+      {company && <p class="text-gray-700 mt-1 font-semibold">{company}</p>}
+    </div>
+    <div class="text-gray-500 mt-2 sm:mt-0 whitespace-nowrap font-medium">{date}</div>
+  </div>
+  
+  <ul class="list-disc ml-4 space-y-2 text-gray-700">
+    {points.map(point => (
+      <li>
+        {point.includes('. ') ? (
+          <>
+            <span class="font-bold text-[#ff9b4f]">{point.split('. ')[0]}. </span>
+            <span>{point.split('. ').slice(1).join('. ')}</span>
+          </>
+        ) : (
+          <span>{point}</span>
+        )}
+      </li>
+    ))}
+  </ul>
+
+  {technologies && technologies.length > 0 && (
+    <div class="mt-4">
+      <div class="text-sm text-gray-500 mb-2">Technologies:</div>
+      <div class="flex flex-wrap gap-2">
+        {technologies.map(tech => (
+          <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  )}
+</div> 

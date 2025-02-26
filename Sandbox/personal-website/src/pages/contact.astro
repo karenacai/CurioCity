@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import airplaneImage from '../assets/airplane.png';
+---
+
+<Layout title="Contact - Karena X. Cai">
+	<main class="min-h-screen bg-white pt-40">
+		<div class="container mx-auto px-4 py-8 max-w-4xl flex flex-col lg:flex-row gap-6 items-center justify-center">
+			{/* Image Container */}
+			<div class="w-full lg:w-1/3 relative flex justify-end">
+				<div class="w-2/3">
+					<img 
+						src={airplaneImage.src} 
+						alt="Paper airplane illustration" 
+						class="w-full object-contain opacity-90"
+					/>
+				</div>
+			</div>
+
+			{/* Content Container */}
+			<div class="flex-1 max-w-xl">
+				<div class="flex items-baseline gap-4 mb-8">
+					<h1 class="text-4xl font-bold">Contact</h1>
+				</div>
+				
+				<div class="space-y-1 mb-8">
+					<p class="text-lg">Have questions? Interested in working with me?</p>
+					<p class="text-lg">Schedule a free 15-minute chat with me!</p>
+				</div>
+				
+				<a 
+					href="https://forms.gle/zH8RktZQo4KrT6GN7" 
+					class="btn-primary mb-12"
+				>
+					Schedule a Chat
+				</a>
+			</div>
+		</div>
+	</main>
+</Layout> 

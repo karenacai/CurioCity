@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
+import Analytics from '../components/Analytics.astro';
+
+interface Props {
+	title?: string;
+}
+
+const { title = 'Your Website' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/curiocity-logo.png" />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+		<Analytics />
+	</head>
+	<body class="bg-gray-50 text-gray-900 font-sans">
+		<Navigation />
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	/* Remove any conflicting styles */
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+</style>

@@ -1,0 +1,80 @@
+---
+const navItems = [
+  { href: '/', text: 'Home' },
+  { href: '/me', text: 'About' },
+  { href: '/teaching', text: 'Teaching' },
+  { href: '/contact', text: 'Contact' }
+];
+
+// Get the current path to highlight the active link
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="fixed top-8 right-0 z-50 pr-12">
+  <div class="h-16 flex items-center">
+    <button 
+      id="mobile-menu-button" 
+      class="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 ml-auto"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <div class="hidden lg:flex lg:items-center lg:gap-8 bg-white/80 backdrop-blur-sm rounded-full px-6 py-2">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class:list={[
+            'px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors',
+            currentPath === item.href && 'text-gray-900 font-medium'
+          ]}
+        >
+          {item.text}
+        </a>
+      ))}
+    </div>
+
+    <div 
+      id="mobile-menu" 
+      class="hidden absolute top-16 right-0 w-48 bg-white/95 backdrop-blur-sm shadow-lg rounded-lg border border-gray-100 lg:hidden mr-12"
+    >
+      <div class="py-2">
+        {navItems.map(item => (
+          <a
+            href={item.href}
+            class:list={[
+              'block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors',
+              currentPath === item.href && 'bg-gray-50 text-gray-900'
+            ]}
+          >
+            {item.text}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest('#mobile-menu') && !target.closest('#mobile-menu-button')) {
+      mobileMenu?.classList.add('hidden');
+    }
+  });
+</script>
+
+<style>
+  #mobile-menu {
+    transition: all 0.2s ease-in-out;
+  }
+</style> 

@@ -1,0 +1,30 @@
+---
+interface SkillCategory {
+  title: string;
+  skills: string[];
+}
+
+interface Props {
+  categories: SkillCategory[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  {categories.map(category => (
+    <div class="col-span-1">
+      <h4 class="text-lg font-semibold mb-3 text-gray-900">{category.title}</h4>
+      <div class="grid gap-2">
+        {category.skills.map(skill => (
+          <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 bg-gray-300 rounded-full"></span>
+              <span class="text-gray-600 text-sm">{skill}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div> 

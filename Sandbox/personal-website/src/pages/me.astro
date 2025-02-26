@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import SkillsGrid from '../components/SkillsGrid.astro';
+import frontPhoto from '../assets/me-pointing.png';
+
+// Import company logos
+import cruiseLogo from '../assets/cruise-logo.png';
+import lyftLogo from '../assets/lyft-logo.png';
+import caltechLogo from '../assets/caltech-logo.png';
+import princetonLogo from '../assets/princeton-logo.png';
+import exponentLogo from '../assets/exponent-logo.png';
+
+const skills = [
+  {
+    title: "Math",
+    skills: ["Linear Algebra", "Optimization", "Probability", "Stochastic Processes"]
+  },
+  {
+    title: "Coding",
+    skills: ["Python", "Pytorch", "JAX", "Tensorflow", "C++", "SQL", "ROS"]
+  },
+  {
+    title: "Machine Learning",
+    skills: ["Machine Learning", "Data Mining", "Deep Generative Models"]
+  },
+  {
+    title: "Tools",
+    skills: ["GPT 4.0", "Claude Opus", "Github with Copilot", "Figma", "Lucidchart", "Cursor", "Streamlit", "DiagramGPT"]
+  }
+];
+
+const careerEntries = [
+  {
+    title: "Senior Applied Scientist II",
+    company: "Cruise LLC",
+    logo: cruiseLogo,
+    logoAlt: "Cruise logo",
+    date: "Oct 2021-Nov 2024",
+    points: [
+      "Core AV Decision-Making Model. Re-architecture of the ml-model led to >40% impact for safety critical performance on the road; Developed and scaled core workflows for feature development, and testing and eval.",
+      "Behavior Testing and Evaluation. Led team in designing and implementing a pre-merge behavioral testing protocol that has caught >5x behavioral regressions in simulation with >3x time improvement in eval workflows.",
+      "Behaviors 101/201. Spearheaded the development of two courses on the end-to-end architectural design of the AV stack and standard engineering workflows. Organized and led 19 sessions with ~100 avg attendees per session.",
+      "Autonomy Docs Website. Championed and led the creation of Cruise's Autonomy Org website, centralizing and making critical documentation accessible for the Perception, Behaviors, and Motion teams."
+    ],
+    technologies: ["Python", "ML", "ROS", "C++"]
+  },
+  {
+    title: "Educational Content Designer Contractor",
+    company: "Exponent",
+    logo: exponentLogo,
+    logoAlt: "Exponent logo",
+    date: "Present",
+    points: [
+      "Content Creation. For the System Design and Data Structures courses for the interview prep start-up Exponent.",
+      "Developer User Guide Design. For the Extraction-Transform-Load (ETL) startup Teleport and data startup Yscape."
+    ],
+    technologies: ["Technical Writing", "Documentation", "Education"]
+  },
+  {
+    title: "Prediction Engineering Intern",
+    company: "Lyft Level 5",
+    logo: lyftLogo,
+    logoAlt: "Lyft logo",
+    date: "Summer 2019",
+    points: [
+      "Core ML Prediction Models. Innovated new ML models based and improved the accuracy of existing prediction tools by 30%."
+    ],
+    technologies: ["Python", "ML", "Prediction Models"]
+  }
+];
+
+const educationEntries = [
+  {
+    title: "Control and Dynamical Systems PhD",
+    company: "Caltech",
+    logo: caltechLogo,
+    logoAlt: "Caltech logo",
+    date: "2015-2021",
+    points: [
+      "PhD Research. Created the notion of behavioral contracts to formally guarantee safety and progress of self-driving cars.",
+      "CMS TAs Lead. Hosted workshop to mentor TAs and teach best practices. Created and designed CMS TAs website for source of best TA practices.",
+      "Healthy Collaboration Workshop. Organized and hosted a workshop to encourage healthier collaborations at Caltech."
+    ]
+  },
+  {
+    title: "Mechanical and Aerospace Engineering Bachelors",
+    company: "Princeton University",
+    logo: princetonLogo,
+    logoAlt: "Princeton University logo",
+    date: "2011-2015",
+    points: [
+      "Library regular, E-Quad inhabitant, made friends, built and broke stuff, and investigated how nature could inspire robotics.",
+      "Minors. Applications of Computing, Robotics and Intelligent Systems."
+    ]
+  }
+];
+---
+
+<Layout title="About - Karena X. Cai">
+  <main class="min-h-screen pt-32 animate-fade-in bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="bg-white mb-16">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+          <div class="relative w-full md:w-1/2 flex justify-center">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                        w-[320px] h-[320px] bg-[#ffc9a0] rounded-full"></div>
+            <img 
+              src={frontPhoto.src} 
+              alt="Karena Cai" 
+              class="relative z-10 w-[280px] h-auto object-cover"
+            />
+          </div>
+
+          <div class="w-full md:w-1/2 space-y-6">
+            <h1 class="font-display text-4xl font-bold text-gray-900">About Myself</h1>
+            <div class="prose prose-lg">
+              <p>
+                Hi, I'm Karena. I am currently exploring new opportunities at the intersection of education and technology. 
+                I previously worked at Cruise as a Senior Applied Scientist II on the Behaviors team.
+              </p>
+
+              <p>I am:</p>
+              <ul class="list-disc ml-8 mb-8">
+                <li>A self-starter and eager to learn anything and everything</li>
+                <li>Passionate about teaching, communication, and collaboration</li>
+              </ul>
+
+              <p>
+                You can sometimes find me running, hiking, learning something new, or in the middle of a good book.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="mb-16">
+        <h2 class="section-title">Career</h2>
+        <div class="space-y-8">
+          {careerEntries.map(entry => (
+            <ExperienceCard {...entry} />
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="section-title">Education</h2>
+        <div class="space-y-8">
+          {educationEntries.map(entry => (
+            <ExperienceCard {...entry} />
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="section-title">Skills</h2>
+        <SkillsGrid categories={skills} />
+      </section>
+    </div>
+  </main>
+</Layout> 

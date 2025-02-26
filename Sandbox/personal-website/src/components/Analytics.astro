@@ -1,0 +1,25 @@
+---
+// Get the current page URL
+const currentPath = Astro.url.pathname;
+---
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GR3MF4DQ9K"></script>
+<script define:vars={{ currentPath }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GR3MF4DQ9K');
+
+  // Track initial page view
+  gtag('event', 'page_view', {
+    page_path: currentPath
+  });
+
+  // Track subsequent navigation events
+  document.addEventListener('astro:page-load', () => {
+    gtag('event', 'page_view', {
+      page_path: window.location.pathname
+    });
+  });
+</script> 

@@ -1,0 +1,25 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+**/.idea/
+**/.vscode/
+**/*.swp
+**/*.swo
+
+# Dependencies
+**/node_modules/
+**/package-lock.json
+
+# Build output
+**/dist/
+**/build/
+
+# Environment variables
+**/.env
+**/.env.local
+
+# Vercel
+**/.vercel
+**/.output 
