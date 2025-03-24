@@ -6,7 +6,7 @@ export default function ConfirmationPage() {
       <div className="w-full max-w-md text-center">
         <h2 className="text-2xl font-bold mb-4">Check Your Email</h2>
         <p className="mb-4 text-gray-600">
-          We've sent a password reset link to your email address. Please check your inbox and follow the instructions.
+          We&apos;ve sent a password reset link to your email address. Please check your inbox and follow the instructions.
         </p>
         <Link 
           href="/login"

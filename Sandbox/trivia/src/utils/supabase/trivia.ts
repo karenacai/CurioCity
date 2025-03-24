@@ -1,10 +1,8 @@
 import { createClient } from '@/utils/supabase/client'
 import type { TriviaQuestion } from '@/types/trivia'
 
-function generateUUID() {
-  // Use crypto API to generate a UUID
-  return crypto.randomUUID()
-}
+// Remove or comment out the unused import
+// import { generateUUID } from '../uuid';
 
 export async function saveTrivia(questions: TriviaQuestion[], userId: string) {
   try {

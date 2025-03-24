@@ -9,10 +9,10 @@ export async function GET(request: NextRequest) {
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type') as EmailOtpType | null
   const next = searchParams.get('next') ?? '/'
-  // console.log("INSIDE API ENDPOINT!!!!")
-  // console.log("token_hash", token_hash)
-  // console.log("type", type)
-  // console.log("next", next)
+  console.log("INSIDE API ENDPOINT!!!!")
+  console.log("token_hash", token_hash)
+  console.log("type", type)
+  console.log("next", next)
 
   if (token_hash && type) {
     const supabase = await createClient()

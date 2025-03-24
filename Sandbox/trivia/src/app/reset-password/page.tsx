@@ -1,14 +1,16 @@
 import { resetPassword } from '../auth/actions'
-import Link from 'next/link'
-import { createClient } from '@/utils/supabase/server'
 
-export default async function ResetPasswordPage({
-  searchParams,
-}: {
-  searchParams: { code?: string; error?: string }
+// Define the types for the props
+type SearchParams = Promise<{ code?: string; error?: string }>
+
+export default async function ResetPasswordPage(props: {
+  searchParams: SearchParams
 }) {
+  // Await the searchParams Promise
+  const searchParams = await props.searchParams
   // Check for error message
   const error = searchParams.error
+  const code = searchParams.code
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
@@ -23,7 +25,7 @@ export default async function ResetPasswordPage({
           <input 
             type="hidden" 
             name="code" 
-            value={searchParams.code} 
+            value={code} 
           />
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">

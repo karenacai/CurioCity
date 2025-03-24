@@ -14,6 +14,9 @@ export async function login(formData: FormData) {
 
   const { error } = await supabase.auth.signInWithPassword(data)
 
+  // console.log("======Login Attempted!!!!=========")
+  // console.log("error", error)
+
   if (error) {
     redirect('/login?error=Invalid credentials')
   }

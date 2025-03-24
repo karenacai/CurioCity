@@ -18,6 +18,16 @@ const CATEGORIES = [
   'Mythology', 'Religion', 'Philosophy', 'Business', 'Pop Culture'
 ]
 
+interface TriviaQuestion {
+  id: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+  category: string;
+  difficulty: string;
+  [key: string]: string | string[];
+}
+
 export async function POST(request: Request) {
   try {
     let { categories, difficulty } = await request.json()
@@ -91,7 +101,7 @@ export async function POST(request: Request) {
     }
 
     // Validate and format each question
-    const formattedQuestions = parsedResponse.questions.map((q: any) => {
+    const formattedQuestions = parsedResponse.questions.map((q: TriviaQuestion) => {
       if (!q.difficulty || !q.question || !q.answer || !q.choices || !q.category) {
         throw new Error(`Invalid question format`)
       }
@@ -102,28 +112,38 @@ export async function POST(request: Request) {
         id: generateUUID(),
         user_id: user.id,
         difficulty,
-        question: q.question.trim(),
-        answer: q.answer.trim(),
-        choices: q.choices.map((c: string) => c.trim()),
-        category: q.category.trim(),
+        question: typeof q.question === 'string' ? q.question.trim() : q.question,
+        answer: typeof q.answer === 'string' ? q.answer.trim() : q.answer,
+        choices: Array.isArray(q.choices) ? q.choices.map((c: string) => typeof c === 'string' ? c.trim() : c) : q.choices,
+        category: typeof q.category === 'string' ? q.category.trim() : q.category,
         created_at: new Date().toISOString()
       }
     })
 
     return NextResponse.json(formattedQuestions)
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error generating trivia:', error)
     
-    if (error.name === 'APIError') {
+    // Improved type guard to check if error is an APIError with a message property
+    if (
+      error && 
+      typeof error === 'object' && 
+      'name' in error && 
+      error.name === 'APIError' &&
+      'message' in error &&
+      typeof error.message === 'string'
+    ) {
       return NextResponse.json(
         { error: 'OpenAI API error', details: error.message },
         { status: 502 }
       )
     }
 
+    // Handle generic error
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to generate trivia questions', details: error.message },
+      { error: 'Failed to generate trivia questions', details: errorMessage },
       { status: 500 }
     )
   }

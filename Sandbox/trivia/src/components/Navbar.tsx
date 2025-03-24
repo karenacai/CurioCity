@@ -9,7 +9,15 @@ async function signOut() {
   redirect('/')
 }
 
-export default async function Navbar() {
+// Add or update the type definition to include the segment prop
+interface NavbarProps {
+  segment?: string;
+}
+
+export default async function Navbar({ 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  segment: _segment 
+}: NavbarProps) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
