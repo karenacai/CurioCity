@@ -91,13 +91,19 @@ export const forgotPasswordAction = async (formData: FormData) => {
 };
 
 export const resetPasswordAction = async (formData: FormData) => {
+  // console.log("inside reset password action");
   const supabase = await createClient();
+
+  // NOTE: We're intentionally not checking auth with getUser() here
+  // This function is only accessible through a password reset flow where
+  // the user already has a verified recovery token from the email link
+  // The middleware has been modified to allow this specific protected route
 
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
   if (!password || !confirmPassword) {
-    encodedRedirect(
+    return encodedRedirect(
       "error",
       "/protected/reset-password",
       "Password and confirm password are required",
@@ -105,7 +111,7 @@ export const resetPasswordAction = async (formData: FormData) => {
   }
 
   if (password !== confirmPassword) {
-    encodedRedirect(
+    return encodedRedirect(
       "error",
       "/protected/reset-password",
       "Passwords do not match",
@@ -117,14 +123,14 @@ export const resetPasswordAction = async (formData: FormData) => {
   });
 
   if (error) {
-    encodedRedirect(
+    return encodedRedirect(
       "error",
       "/protected/reset-password",
       "Password update failed",
     );
   }
 
-  encodedRedirect("success", "/protected/", "Password updated");
+  return encodedRedirect("success", "/protected/", "Password updated");
 };
 
 export const signOutAction = async () => {
