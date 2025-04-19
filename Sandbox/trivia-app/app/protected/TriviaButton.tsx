@@ -385,6 +385,12 @@ export default function TriviaButton() {
         </Button>
       </div>
       
+      {dailyQuotaUsed !== null && dailyQuotaUsed >= 3 && (
+        <div className="text-center text-sm text-muted-foreground mt-2">
+          You have generated your set of trivia questions for the day. Come back again tomorrow for more!
+        </div>
+      )}
+      
       {error && (
         <div className="mt-4 p-2 bg-destructive/10 border border-destructive rounded-md text-destructive text-xs">
           {error}
